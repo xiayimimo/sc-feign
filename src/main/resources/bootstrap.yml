@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: springcloud-consumer-feign
+  cloud:
+    config:
+      #config-server的配置，不需要硬编码config-server的地址，使用service-id去eureka-server获取config-server的地址
+      discovery:
+        enabled: true
+        service-id: springcloud-config-server
+      fail-fast: true
+      username: root
+      password: 1234
+      profile: dev
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:1234@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    appname: springcloud-consumer-feign
